@@ -9,7 +9,7 @@ import os
 MCP_API_TOKEN = os.environ.get("MCP_API_TOKEN")
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 
-mcp = MCPServer("my-mcp-server
+mcp = MCPServer("my-mcp-server)
 
 
 # Add tools below. The docstring is surfaced to LLMs as the tool description.
