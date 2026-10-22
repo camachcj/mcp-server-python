@@ -9,14 +9,7 @@ import os
 MCP_API_TOKEN = os.environ.get("MCP_API_TOKEN")
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 
-mcp = MCPServer(
-    "my-mcp-server",
-    stateless_http=True,
-    transport_security=TransportSecuritySettings(
-        enable_dns_rebinding_protection=bool(RENDER_EXTERNAL_HOSTNAME),
-        allowed_hosts=[RENDER_EXTERNAL_HOSTNAME] if RENDER_EXTERNAL_HOSTNAME else [],
-    ),
-)
+mcp = MCPServer("my-mcp-server
 
 
 # Add tools below. The docstring is surfaced to LLMs as the tool description.
@@ -63,7 +56,13 @@ class BearerAuthMiddleware:
 
 
 def create_app():
-    app = mcp.streamable_http_app()
+    app = mcp.streamable_http_app(
+        stateless_http=True,
+        transport_security=TransportSecuritySettings(
+            enable_dns_rebinding_protection=bool(RENDER_EXTERNAL_HOSTNAME),
+            allowed_hosts=[RENDER_EXTERNAL_HOSTNAME] if RENDER_EXTERNAL_HOSTNAME else [],
+        ),
+    )
     # When no token is set (local dev), auth is disabled entirely
     if MCP_API_TOKEN:
         app.add_middleware(BearerAuthMiddleware)
